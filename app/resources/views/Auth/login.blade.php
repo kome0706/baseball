@@ -3,7 +3,7 @@
 @section('content')
 <div class="header-card" style="text-align: center; margin-top: 4em; font-size: 1.5em;">ログイン</div>
     <div class="card-box">
-        <form action="" method="POST" class="form">
+        <form action="{{ route('login') }}" method="POST" class="form">
             @csrf
             <div class="form-group" >
                 <label for="email">メールアドレス</label>
@@ -19,7 +19,7 @@
             </div>
         </form>
         <div class="text-center">
-          <a href="">パスワードの変更はこちらから</a>
+          <a href="{{ route('reset.form') }}">パスワードの変更はこちらから</a>
         </div>
     </div>  
 @endsection

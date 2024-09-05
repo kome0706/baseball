@@ -63,3 +63,44 @@ label{
 .text-center{
     display:flex; justify-content: center; margin-top: 1em;
 }
+
+<!--main-->
+.top-main{
+    width:100%;
+}
+
+.top-head{
+    display:flex;
+    justify-content: center;
+}
+
+.btn{
+    background-color: #fff;
+    border: double 6px #3cb371;
+    color: #3cb371;
+    border-radius: 10px;
+    padding: 10px 30px;
+    text-decoration: none;
+    font-size: 1em;
+    margin-right: 5em;
+    margin-top: 5em;
+    }
+
+.post-box{
+    padding:2em;/*内側余白*/
+	border:double 7px #afb9cf;/*線の種類・太さ・色*/
+    margin-top: 2em;
+}
+
+.scop, .scops{
+    padding-bottom: 2em;
+}
+
+.scops{
+    padding-left: 1em;
+}
+
+.form-control{
+    font-size: 1em;
+    height: 20px;
+}

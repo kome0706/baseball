@@ -20,12 +20,31 @@
     <body>
         <div id="app">
             <div class="header">
-                <a class="header-link" href="">baseball funs</a>
-                <div class="header-link1">
-                    <a  href="">ログイン</a>
-                    /
-                    <a  href="">会員登録</a>
-                </div>    
+                <a class="header-link" href="{{ url('/') }}">baseball funs</a>
+                
+                    @if(Auth::check())
+                        <div class="header-link1">
+                            <span class="header-user">{{ Auth::user()->name }}</span>
+                            /
+                            <a href="#" id="logout" class="logout" >ログアウト</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>    
+                        <script>
+                            document.getElementById('logout').addEventListener('click', function(event){
+                            event.preventDefault();
+                            document.getElementById('logout-form').submit();    
+                            });
+                        </script>
+                    @else    
+                        <div class="header-link1">
+                            <a  href="{{ route('login') }}">ログイン</a>
+                            /
+                            <a  href="{{ route('register') }}">会員登録</a>
+                        </div> 
+                    @endif
+                          
             </div> 
         @yield('content')       
         </div>

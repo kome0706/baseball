@@ -3,7 +3,7 @@
 @section('content')
 <div class="card-header" style="text-align: center; margin-top: 3em; font-size: 1.5em;">会員登録</div>
     <div class="card-box" >
-        <form action="" method="POST" class="form">
+        <form action="{{ route('register') }}" method="POST" class="form">
             @csrf
             <div class="form-group">
                 <label for="name">ユーザー名</label>
