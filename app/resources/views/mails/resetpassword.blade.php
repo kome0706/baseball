@@ -7,8 +7,10 @@
         <form action="{{ route('reset.send') }}" method="POST" class="form">
             @csrf
             <div class="form-group" style="text-align: center;">
-                <label for="email" style="display:block;">登録時のメールアドレス</label>
-                <input type="text" class="form-control" id="email" name="email" value="{{ old('mail') }}" style="margin-top:20px"/>
+                <label for="mail" style="display:block;">登録時のメールアドレス</label>
+                <input type="text" class="form-control" id="mail" name="mail" value="{{ old('mail') }}" style="margin-top:20px"/>
+                <br>
+                <span style="color:red">{{ $errors->first('mail') }}</span>
             </div>
             <div class="text-right">
                 <button type="submit" class="btn-form">再設定用メールの送信</button>

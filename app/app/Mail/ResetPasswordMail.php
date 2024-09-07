@@ -13,8 +13,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
+use App\User;
 use Carbon\Carbon;
+use App\Mail\URL;
 
 class ResetPasswordMail extends Mailable
 {
@@ -29,10 +30,10 @@ class ResetPasswordMail extends Mailable
      * @param User $user
      * @param User $userToken
      */
-    public function __construct(User $user, User $userToken)
+    public function __construct(Users $user, Users $userToken)
     {
-        $this->user = $user;
-        $this->userToken = $userToken;
+        $this->users = $user;
+        $this->usersToken = $userToken;
     }
 
 
@@ -44,7 +45,7 @@ class ResetPasswordMail extends Mailable
     public function build()
     {
         // トークン取得 
-        $tokenParam = ['reset_token' => $this->userToken->rest_password_access_key];
+        $tokenParam = ['reset_token' => $this->usersToken->rest_password_access_key];
         $now = Carbon::now();
 
         // 署名付き有効期限24時間のURLを生成
@@ -54,9 +55,9 @@ class ResetPasswordMail extends Mailable
         return $this->view('users.password_reset_mail')
                     ->subject('パスワード再設定用URLのご案内')
                     ->from(config('mail.from.address'), config('mail.from.name'))
-                    ->to($this->user->mail)
+                    ->to($this->users->mail)
                     ->with([
-                        'user' => $this->user,
+                        'user' => $this->users,
                         'url' => $url,
                         ]);
     }

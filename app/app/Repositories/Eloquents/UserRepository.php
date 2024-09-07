@@ -16,18 +16,18 @@ class UserRepository implements UserRepositoryInterface
     /**
      * constructor
      *
-     * @param User $user
+     * @param Users $user
      */
     public function __construct(User $user, User $userToken)
     {
-        $this->user = $user;
-        $this->userToken = $userToken;
+        $this->users = $user;
+        $this->usersToken = $userToken;
     }
 
     // メールアドレスからユーザー情報取得
     public function findFromMail(string $mail): User
     {
-        return $this->user->where('mail', $mail)->firstOrFail();
+        return $this->users->where('mail', $mail)->firstOrFail();
     }
 
     // パスワードリセット用トークンを発行
@@ -36,7 +36,7 @@ class UserRepository implements UserRepositoryInterface
         $now = Carbon::now();
         // $userIdをハッシュ化
         $hashedToken = hash('sha256', $userId);
-        return $this->userToken->updateOrCreate(
+        return $this->usersToken->updateOrCreate(
             [
                 'id' => $userId,
             ],
@@ -57,6 +57,6 @@ class UserRepository implements UserRepositoryInterface
     // パスワード更新
     public function updateUserPassword(string $password, int $id): void
     {
-        $this->user->where('id', $id)->update(['password' => $password]);
+        $this->users->where('id', $id)->update(['password' => $password]);
     }
 }

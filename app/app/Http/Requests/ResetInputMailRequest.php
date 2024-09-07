@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class ResetInputMailRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the users is authorized to make this request.
      *
      * @return bool
      */
@@ -24,7 +24,7 @@ class ResetInputMailRequest extends FormRequest
     public function rules()
     {
         return [
-            'mail'=>['required', 'email:rfc,dns,filter', 'exists:user,mail']
+            'mail'=>['required', 'email:rfc,dns,filter', 'exists:users,mail']
         ];
     }
 

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Exception;
 use App\Http\Requests\ResetPasswordRequest;
+use App\User;
+
 
 class ResetPWControllers extends Controller
 {

@@ -11,7 +11,7 @@ interface UserRepositoryInterface{
      * メールアドレスからユーザー情報を取得
      *
      * @param string $mail
-     * @return User
+     * @return Users
      */
     public function findFromMail(string $mail): User;
 
@@ -19,14 +19,14 @@ interface UserRepositoryInterface{
      * パスワードリセット用トークンを発行
      *
      * @param int $userId
-     * @return User
+     * @return Users
      */
     public function updateOrCreateUser(int $userId): User;
 
     /**
      * トークンからユーザー情報を取得
      * @param string $token
-     * @return User
+     * @return Users
      */
     public function getUserTokenFromUser(string $token): User;
 
