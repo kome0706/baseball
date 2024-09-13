@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +25,30 @@ Auth::routes();
 
 Route::group(['middleware'=>'auth'], function() {
 
-    
-
+    //投稿画面
     Route::get('/',[DisplayController::class, 'index']);
+    //投稿検索
+    Route::get('/search_post', [DisplayController::class,'SearchPost'])->name('search.post');
+    //投稿詳細
+    Route::get('/post/{id}/detail', [DisplayController::class, 'PostDetail'])->name('post.detail');
+    //画像変更画面
+    Route::get('/edit_image/{id}', [RegistrationController::class, 'EditImageForm'])->name('edit.image');
+    Route::post('/edit_image/{id}', [RegistrationController::class, 'EditImage']);
+    //投稿編集画面
+    Route::get('/edit_postform/{id}', [RegistrationController::class, 'EditPostForm'])->name('edit.post');
+    Route::post('/edit_postform/{id}', [RegistrationController::class, 'EditPost']);
+    //投稿削除
+    Route::get('del_post/{id}', [RegistrationController::class, 'DelPost'])->name('del.post');
+    //新規投稿画面
+    Route::get('/posts',[RegistrationController::class, 'NewPostsForm'])->name('new.posts');
+    Route::post('/posts',[RegistrationController::class, 'NewPosts']);
+    
+    //アカウント詳細
+    Route::get('/accountdetail', [AccountController::class, 'AccountDetail'])->name('account.detail');
+    //アカウント編集
+    Route::get('/account_edit',[AccountController::class, 'AccountEditForm'])->name('account.edit');
+    Route::post('/account_edit', [AccountController::class, 'AccountEdit']);
+
 
 });
 Route::prefix('reset')->group(function () {
