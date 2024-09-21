@@ -9,11 +9,7 @@ use App\Post;
 class AccountController extends Controller
 {
     public function AccountDetail() {
-        $post = Auth::user()->post()->get();
-        var_dump($post);
-        return view('account_detail',[
-            'post'=>$post,
-        ]);
+        return view('account_detail');
     }
 
     public function AccountEditForm() {
@@ -27,5 +23,16 @@ class AccountController extends Controller
 
         $user->save();
         return redirect('/');
+    }
+
+    public function AccountDelConf() {
+        return view('account_conf_del');
+    }
+
+    public function AccountDel(int $id) {
+        $user=Auth::user()->find($id);
+        var_dump($user);
+        $user->delete();
+        return redirect('/login');
     }
 }

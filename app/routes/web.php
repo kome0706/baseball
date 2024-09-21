@@ -23,10 +23,23 @@ use App\Http\Controllers\AccountController;
 
 Auth::routes();
 
-Route::group(['middleware'=>'auth'], function() {
+Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'can:admin']], function () {
+    Route::get('/admin', [AdminController::class, 'Admin']);
+});
+
+Route::group(['prefix' => 'user', 'middleware'=>'auth'], function() {
+    Route::get('/', function () {
+        return "user";
+    });
+});    
+
+Route::group([ 'middleware'=>'auth'], function() {
+    
 
     //投稿画面
-    Route::get('/',[DisplayController::class, 'index']);
+    Route::get('/',[DisplayController::class, 'index']);/*, function (){
+        return "user";
+    });*/
     //投稿検索
     Route::get('/search_post', [DisplayController::class,'SearchPost'])->name('search.post');
     //投稿詳細
@@ -48,9 +61,19 @@ Route::group(['middleware'=>'auth'], function() {
     //アカウント編集
     Route::get('/account_edit',[AccountController::class, 'AccountEditForm'])->name('account.edit');
     Route::post('/account_edit', [AccountController::class, 'AccountEdit']);
-
+    //アカウント削除
+    Route::get('/account_conf_del', [AccountController::class, 'AccountDelConf'])->name('account.del.conf');
+    Route::get('/account_del/{id}', [AccountController::class, 'AccountDel'])->name('account.del');
 
 });
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('admin-register');
+
+Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin-home');
+
 Route::prefix('reset')->group(function () {
     // パスワード再設定用のメール送信フォーム
     Route::get('/pw', 'ResetPWControllers@requestResetPassword')->name('reset.form');
@@ -63,3 +86,6 @@ Route::prefix('reset')->group(function () {
     // パスワード更新
     Route::post('/password/update', 'ResetPWControllers@updatePassword')->name('reset.password.update');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

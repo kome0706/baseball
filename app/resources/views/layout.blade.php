@@ -26,10 +26,10 @@
                         <div class="header-link1">
                             <span class="header-user">{{ Auth::user()->name }}</span>
                             /
-                            <a href="{{route('account.detail') }}" >アカウント詳細</a>
+                            <a href="{{route('account.detail') }}" >アカウント編集</a>
                             /
                             <a href="#" id="logout" class="logout" >ログアウト</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="post" >
                                 @csrf
                             </form>
                             
