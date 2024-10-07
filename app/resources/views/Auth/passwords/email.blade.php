@@ -5,23 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="card-header" style="font-size: 1.5em; text-align: center;">パスワードリセット</div>
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-success" role="alert" style="text-align: center;">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" class="form" action="{{ route('password.email') }}">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <div class="form-group row" style="text-align: center; margin-top: 1.5em;">
+                            <label for="email" class="col-md-4 col-form-label text-md-right" >登録時のメールアドレス</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus 
+                                style="width:80%; margin-top: 20px;">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -32,9 +33,9 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                            <div class="col-md-6 offset-md-4" style="display: flex; justify-content: center;margin-top: 1em;">
+                                <button type="submit" class="btn-form">
+                                    リセットリンク送信
                                 </button>
                             </div>
                         </div>

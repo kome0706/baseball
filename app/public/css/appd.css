@@ -62,7 +62,9 @@ label{
 }
 
 .text-center{
-    display:flex; justify-content: center; margin-top: 1em;
+    display:flex; 
+    justify-content: center; 
+    margin-top: 1em;
 }
 
 <!--main-->
@@ -137,4 +139,22 @@ h{
     justify-content: center;
     margin-top: 20px;
     font-size: 25px;
+}
+
+.good{
+    display: block;
+    background-color: white;
+}
+
+.ungood{
+    display: block;
+    background-color: pink;
+}
+
+.hidden{
+    display: none;
+}
+
+.conf-del{
+    text-align: center;
 }

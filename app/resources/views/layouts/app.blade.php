@@ -17,14 +17,14 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/appd.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Baseball Funs
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -42,24 +42,16 @@
                         @if(!Auth::check() && (!isset($authgroup) || !Auth::guard($authgroup)->check()))
                             <li class="nav-item">
                                 @isset($authgroup)
-                                <a class="nav-link" href="{{ url'login/$authgroup') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ url('login/$authgroup') }}">{{ __('Login') }}</a>
                                 @else
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>
                                 @endisset
                             </li>
-                            @isset($authgroup)
-                            @if (Route::has("$authgroup-register"))
+                            
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('$authgroup-register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('会員登録') }}</a>
                                 </li>
-                            @endif
-                            @else
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                            @endisset
+                            
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -67,6 +59,7 @@
                                     {{ Auth::guard($authgroup)->user()->name }} <span class="caret"></span>
                                     @else
                                     {{ Auth::user()->name }} <span class="caret"></span>
+                                    @endisset
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

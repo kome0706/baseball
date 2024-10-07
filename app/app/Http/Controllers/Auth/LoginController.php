@@ -41,12 +41,12 @@ class LoginController extends Controller
         $this->middleware('guest:admin')->except('logout');
     }
 
+    //admin用
     public function showAdminLoginForm()
     {
         return view('auth.login', ['authgroup' => 'admin']);
     }
-    
-    //admin用
+      
     public function adminLogin(Request $request)
     {
         $this->validate($request, [

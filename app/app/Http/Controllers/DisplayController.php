@@ -11,7 +11,7 @@ class DisplayController extends Controller
     public function index(){
         $post = new Post;
         $all = $post->all()->toArray();
-        var_dump($all);
+        //var_dump($all);
         return view('home', [
             'post'=>$all,
         ]);

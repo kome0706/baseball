@@ -5,7 +5,7 @@
         <a href="{{route('account.del.conf',Auth::user()->id)}}">
             <button class="btn">アカウント削除確認</button>
         </a>
-        <a href="{{route('account.edit')}}">
+        <a href="{{route('account.edit',Auth::user()->id)}}">
             <button class="btn">アカウント編集</button>
         </a>
     </div>

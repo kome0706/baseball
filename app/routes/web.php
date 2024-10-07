@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,23 +25,14 @@ use App\Http\Controllers\AccountController;
 
 Auth::routes();
 
-Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'can:admin']], function () {
-    Route::get('/admin', [AdminController::class, 'Admin']);
-});
-
-Route::group(['prefix' => 'user', 'middleware'=>'auth'], function() {
-    Route::get('/', function () {
-        return "user";
-    });
-});    
+   
 
 Route::group([ 'middleware'=>'auth'], function() {
     
 
     //投稿画面
-    Route::get('/',[DisplayController::class, 'index']);/*, function (){
-        return "user";
-    });*/
+    Route::get('/',[DisplayController::class, 'index']);
+       
     //投稿検索
     Route::get('/search_post', [DisplayController::class,'SearchPost'])->name('search.post');
     //投稿詳細
@@ -59,33 +52,28 @@ Route::group([ 'middleware'=>'auth'], function() {
     //アカウント詳細
     Route::get('/accountdetail', [AccountController::class, 'AccountDetail'])->name('account.detail');
     //アカウント編集
-    Route::get('/account_edit',[AccountController::class, 'AccountEditForm'])->name('account.edit');
-    Route::post('/account_edit', [AccountController::class, 'AccountEdit']);
+    Route::get('/account_edit/{id}',[AccountController::class, 'AccountEditForm'])->name('account.edit');
+    Route::post('/account_edit/{id}', [AccountController::class, 'AccountEdit']);
     //アカウント削除
     Route::get('/account_conf_del', [AccountController::class, 'AccountDelConf'])->name('account.del.conf');
     Route::get('/account_del/{id}', [AccountController::class, 'AccountDel'])->name('account.del');
 
+    Route::post('/like/{postId}',[LikeController::class,'store']);
+    Route::post('/unlike/{postId}',[LikeController::class,'destroy']);
+    
+
 });
-Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm')->name('admin.login');
 Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
 
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('admin-register');
 
-Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin-home');
+//Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin-home');
+Route::get('/admin', [AdminController::class, 'admin'])->name('admin-home');
 
-Route::prefix('reset')->group(function () {
-    // パスワード再設定用のメール送信フォーム
-    Route::get('/pw', 'ResetPWControllers@requestResetPassword')->name('reset.form');
-    // メール送信処理
-    Route::post('/send', 'ResetPWControllers@sendResetPasswordMail')->name('reset.send');
-    // メール送信完了
-    Route::get('/send/complete', 'ResetPWControllers@sendCompleteResetPasswordMail')->name('reset.send.complete');
-    // パスワード再設定
-    Route::get('/password/edit', 'ResetPWControllers@resetPassword')->name('reset.password.edit');
-    // パスワード更新
-    Route::post('/password/update', 'ResetPWControllers@updatePassword')->name('reset.password.update');
-});
-Auth::routes();
+Route::get('/post/{id}/detail', [AdminController::class, 'PostDetail'])->name('post.detail');
+//投稿削除
+Route::get('del_post/{id}', [AdminController::class, 'DelPost'])->name('del.post');
 
-Route::get('/home', 'HomeController@index')->name('home');
+

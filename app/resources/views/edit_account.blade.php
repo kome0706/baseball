@@ -2,7 +2,7 @@
 @section('content')
     <div class="card-header" style="text-align: center; margin-top: 3em; font-size: 1.5em;">アカウント編集</div>
 
-        <form action="{{route('account.edit')}}" method="POST" class="form">
+        <form action="{{route('account.edit',Auth::user()->id)}}" method="POST" class="form">
             @csrf
             <div class="form-group" style="margin-top:5em; margin-bottom:5em;">
                 <label for="name">ユーザー名</label>

@@ -16,8 +16,8 @@ class AccountController extends Controller
         return view('edit_account');
     }
 
-    public function AccountEdit(Request $request) {
-        $user->Auth::user()->get();
+    public function AccountEdit(int $id, Request $request) {
+        $user=Auth::user()->find($id);
         $user->name = $request->name;
         $user->email = $request->email;
 

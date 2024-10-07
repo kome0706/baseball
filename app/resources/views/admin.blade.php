@@ -1,23 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <p>管理者専用ページ</p>
+    @foreach($post as $posts) 
+        <table>
+            <tr>
+                <th>タイトル</th>
+                <th>投稿日時</th>
+                <th>投稿詳細</th>
+            </tr> 
+            <tr>
+                <td>{{$posts['title']}}</td>
+                <td>{{$posts['date']}}</td>
+                <td>
+                    <a href="{{route('post.detail',['id'=>$posts['id']])}}">投稿詳細</a>
+                </td>
+            </tr>
+        </table> 
+    @endforeach      
 @endsection
